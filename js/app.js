@@ -38,12 +38,10 @@ let createdBtn = false;
  * 
 */
 function hideNavMenu(){
-    console.log('hidding')
     header.style.display = 'none'
 }
 
 function showNavMenu(){
-    console.log('showing')
     header.style.display = 'initial'
 }
 
@@ -125,10 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Set sections as active
 window.addEventListener('scroll', (e) => {
     if(timeoutId) clearTimeout(timeoutId);
-
-    console.log(e)
     scrollPos = window.scrollY;
-    console.log(scrollPos);
 
     updateActiveSection();
     showNavMenu();
