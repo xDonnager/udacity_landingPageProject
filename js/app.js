@@ -24,12 +24,36 @@
 */
 let sections = document.querySelectorAll('section');
 const navbarList = document.querySelector('#navbar__list');
+const header = document.querySelector('.page__header');
+const main = document.querySelector('main');
+
+let timeoutId;
+let scrollPos = 0;
+
+let createdBtn = false;
 
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
+function hideNavMenu(){
+    console.log('hidding')
+    header.style.display = 'none'
+}
+
+function showNavMenu(){
+    console.log('showing')
+    header.style.display = 'initial'
+}
+
+function createScrollToTopButon(){
+    const div = document.createElement('div');
+    div.innerHTML = `<span class="material-symbols-outlined">arrow_upward</span> <a href="#hero">Scroll to top</a>`
+    div.classList.add('scroll__btn')
+    main.appendChild(div);
+    
+}
 
 
 /**
@@ -65,9 +89,6 @@ function createNavigationMenu(navItems, hostElement){
 function updateActiveSection(){
     for (const section of sections){
         const rect = section.getBoundingClientRect();
-        // console.log(section)
-        // console.log('top',rect.top)
-        // console.log('bot',rect.bottom)
         if(rect.top >= 0 && rect.top <= 200 && rect.bottom >= 200){
             section.classList.add('focused')
         } else {
@@ -102,4 +123,37 @@ document.addEventListener('DOMContentLoaded', () => {
 // navbarList.addEventListener('click', scrollToSection)
 
 // Set sections as active
-document.addEventListener('scroll', updateActiveSection)
+window.addEventListener('scroll', (e) => {
+    if(timeoutId) clearTimeout(timeoutId);
+
+    console.log(e)
+    scrollPos = window.scrollY;
+    console.log(scrollPos);
+
+    updateActiveSection();
+    showNavMenu();
+
+    timeoutId = setTimeout( ()=>{
+        hideNavMenu();
+    }, 3000)
+
+    if(scrollPos >= 2500 && !createdBtn) {
+        createScrollToTopButon();
+        createdBtn = true;
+    };
+
+})
+
+//hide fixed navigation bar
+// document.addEventListener('scroll', () => {
+//     showNavMenu();
+//     setTimeout(hideNavMenu, 3000)
+        
+// })
+
+//show navigation menu if mouse is near.
+window.addEventListener('mouseover', (e) => {
+    if(e.y <= 110){ 
+        showNavMenu();
+    }
+})

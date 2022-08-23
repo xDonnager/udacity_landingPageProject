@@ -212,6 +212,20 @@ section.focused .landing__container::after {
     animation: rotate 5s linear 0s infinite forwards reverse;
 }
 
+.scroll__btn{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    margin: 1rem 0 1rem 0;
+    align-items: center;
+}
+.scroll__btn > a {
+    text-decoration: none;
+    color: white;
+}
+
+
 /* Section Active Styles Keyframe Animations */
 @keyframes rotate {
 	from {
