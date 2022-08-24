@@ -216,7 +216,10 @@ section:nth-of-type(3n + 1) .landing__container::after {
         height: 3rem;
         left: 1rem;
         top: 30rem;
-        animation: rotateIn 1s ease-in-out both;
+        animation: rotateIn 2.5s ease-in-out;
+    }
+    .animation__left > img:hover{
+        animation-play-state: running;
     }
     .animation__right > img {
         display: block;
@@ -225,7 +228,7 @@ section:nth-of-type(3n + 1) .landing__container::after {
         width: 10rem;;
         right: 5rem;
         top: 10rem;
-        animation: rotateIn 1s ease-in-out both;
+        animation: rotateIn 2.5s ease-in-out;
     }
 }
 
