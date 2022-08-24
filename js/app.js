@@ -22,11 +22,12 @@
  * Define Global Variables
  * 
 */
-let sections = document.querySelectorAll('section');
+const sections = document.querySelectorAll('section');
 const navbarList = document.querySelector('#navbar__list');
 const header = document.querySelector('.page__header');
 const main = document.querySelector('main');
 
+/*Scrolling aux vars*/
 let timeoutId;
 let scrollPos = 0;
 
@@ -37,20 +38,20 @@ let createdBtn = false;
  * Start Helper Functions
  * 
 */
-function hideNavMenu(){
+const hideNavMenu = () => {
     header.style.display = 'none'
 }
 
-function showNavMenu(){
+const showNavMenu = () => {
     header.style.display = 'initial'
 }
 
 function createScrollToTopButon(){
     const div = document.createElement('div');
     div.innerHTML = `<span class="material-symbols-outlined">arrow_upward</span> <a href="#hero">Scroll to top</a>`
-    div.classList.add('scroll__btn')
+    div.classList.add('scroll__btn');
+
     main.appendChild(div);
-    
 }
 
 
@@ -128,6 +129,7 @@ window.addEventListener('scroll', (e) => {
     updateActiveSection();
     showNavMenu();
 
+    //hide fixed navigation bar
     timeoutId = setTimeout( ()=>{
         hideNavMenu();
     }, 3000)
@@ -139,12 +141,6 @@ window.addEventListener('scroll', (e) => {
 
 })
 
-//hide fixed navigation bar
-// document.addEventListener('scroll', () => {
-//     showNavMenu();
-//     setTimeout(hideNavMenu, 3000)
-        
-// })
 
 //show navigation menu if mouse is near.
 window.addEventListener('mouseover', (e) => {
