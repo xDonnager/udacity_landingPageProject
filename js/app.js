@@ -22,10 +22,15 @@
  * Define Global Variables
  * 
  */
+const browserSupport = {
+    events: !!window.addEventListener,
+    selectors: !!document.querySelectorAll
+};
 const sections = document.querySelectorAll('section');
 const navbarList = document.querySelector('#navbar__list');
 const header = document.querySelector('.page__header');
 const main = document.querySelector('main');
+
 
 /**
  * Scrolling aux vars
@@ -50,8 +55,17 @@ const showNavMenu = () => {
 
 function createScrollToTopButon() {
     const div = document.createElement('div');
-    div.innerHTML = `<span class="material-symbols-outlined">arrow_upward</span> <a href="#hero">Scroll to top</a>`
+    div.innerHTML = `<span class="material-symbols-outlined">arrow_upward</span>`
     div.classList.add('scroll__btn');
+
+    // sync with hero section
+    div.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('hero').scrollIntoView({
+            block: 'start',
+            behavior: 'smooth'
+        })
+    })
 
     main.appendChild(div);
 }
@@ -89,8 +103,7 @@ function createNavigationMenu(navItemsFragment, hostElement) {
 function updateActiveSection() {
     for (const section of sections) {
         const rect = section.getBoundingClientRect();
-        console.log(section);
-        console.log(rect)
+
         if (rect.top >= -30 && rect.top <= 200 && rect.bottom >= 200) {
             section.classList.add('focused')
         } else {
@@ -117,37 +130,44 @@ function scrollToSection(e) {
  * 
  */
 
-// Build menu and add click event listener
-document.addEventListener('DOMContentLoaded', () => {
-    createNavigationMenu(createListElements(sections), navbarList);
+if (browserSupport.events && browserSupport.selectors){
+    // Build menu and add click event listener
+    document.addEventListener('DOMContentLoaded', () => {
+        createNavigationMenu(createListElements(sections), navbarList);
 
-    navbarList.addEventListener('click', scrollToSection)
-})
+        //how to call callback function and pass params as well as event?
+        navbarList.addEventListener('click', scrollToSection)
+    });
 
-// Set sections as active
-window.addEventListener('scroll', (e) => {
-    if (timeoutId) clearTimeout(timeoutId);
-    scrollPos = window.scrollY;
+    // Set sections as active
+    window.addEventListener('scroll', (e) => {
+        if (timeoutId) clearTimeout(timeoutId);
+        scrollPos = window.scrollY;
 
-    updateActiveSection();
-    showNavMenu();
-
-    //hide fixed navigation bar
-    timeoutId = setTimeout(() => {
-        hideNavMenu();
-    }, 3000)
-
-    if (scrollPos >= 2500 && !createdBtn) {
-        createScrollToTopButon();
-        createdBtn = true;
-    };
-
-})
-
-
-//show navigation menu if mouse is near.
-window.addEventListener('mouseover', (e) => {
-    if (e.y <= 110) {
+        updateActiveSection();
         showNavMenu();
-    }
-})
+
+        //hide fixed navigation bar
+        timeoutId = setTimeout(() => {
+            hideNavMenu();
+        }, 3000)
+
+        //create scrollup button
+        if (scrollPos >= 1000 && !createdBtn) {
+            createScrollToTopButon();
+            createdBtn = true;
+        };
+
+    })
+
+    //show navigation menu if mouse is near.
+    window.addEventListener('mouseover', (e) => {
+        if (e.y <= 110) {
+            showNavMenu();
+        }
+    })
+
+} else {
+    alert('Seems that you are using some kind of old browser, some features may not be available')
+}
+

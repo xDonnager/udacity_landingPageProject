@@ -8,6 +8,9 @@
  *
 */
 
+/* ---- Load Google Fonts ---- */
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:900|Merriweather&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
 /* ---- Base Rules ---- */
 
@@ -213,6 +216,7 @@ section:nth-of-type(3n + 1) .landing__container::after {
         height: 3rem;
         left: 1rem;
         top: 30rem;
+        transition: opacity 1s;
         animation: rotateIn 2.5s ease-in-out;
     }
     .animation__left > img:hover{
@@ -225,10 +229,20 @@ section:nth-of-type(3n + 1) .landing__container::after {
         width: 10rem;;
         right: 5rem;
         top: 10rem;
+        transition: opacity 1s;
         animation: rotateIn 2.5s ease-in-out;
     }
 }
 
+.animation__right > img:hover {
+    opacity: 100%;
+    transition: opacity 1s;
+}
+
+.animation__left > img:hover {
+    opacity: 100%;
+    transition: opacity 1s;
+}
 
 
 @keyframes rotateIn {
@@ -258,20 +272,6 @@ section.focused .landing__container::after {
     animation: rotate 5s linear 0s infinite forwards reverse;
 }
 
-.scroll__btn{
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-    font-size: 1.5rem;
-    margin: 1rem 0 1rem 0;
-    align-items: center;
-}
-.scroll__btn > a {
-    text-decoration: none;
-    color: white;
-}
-
-
 /* Section Active Styles Keyframe Animations */
 @keyframes rotate {
 	from {
@@ -284,4 +284,25 @@ section.focused .landing__container::after {
 		           translate(-1em) 
 		           rotate(-360deg);
 	}
+}
+
+
+/* SScroll up button */
+.scroll__btn{
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 0.5rem;
+    display: block;
+    position: fixed;
+    bottom: 0;
+    right: 1rem;
+    font-size: 1.5rem;
+    margin: 1rem 0 1rem 0;
+    align-items: center;
+}
+.scroll__btn:hover{
+    color:  rgb(25 48 81);
+    border-color: white;
+    background: white;
 }
