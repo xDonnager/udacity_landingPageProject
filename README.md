@@ -9,7 +9,6 @@ It controls the scrolling position in order to change the style of the active se
 # Table of contents
 
 - [Project Title](#landing-page-project)
-- [Demo-Preview](#demo-preview)
 - [Table of contents](#table-of-contents)
 - [Installation](#installation)
 - [Usage](#usage)
