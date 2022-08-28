@@ -26,11 +26,12 @@ const browserSupport = {
     events: !!window.addEventListener,
     selectors: !!document.querySelectorAll
 };
-const sections = document.querySelectorAll('section');
-const navbarList = document.querySelector('#navbar__list');
-const header = document.querySelector('.page__header');
-const main = document.querySelector('main');
-
+const appSelectors = {
+    sections : document.querySelectorAll('section'),
+    navbarList : document.querySelector('#navbar__list'),
+    header : document.querySelector('.page__header'),
+    main : document.querySelector('main'),
+}
 
 /**
  * Scrolling aux vars
@@ -46,11 +47,11 @@ let createdBtn = false;
  * 
  */
 const hideNavMenu = () => {
-    header.style.display = 'none'
+    appSelectors.header.style.display = 'none'
 }
 
 const showNavMenu = () => {
-    header.style.display = 'initial'
+    appSelectors.header.style.display = 'initial'
 }
 
 function createScrollToTopButon() {
@@ -67,7 +68,7 @@ function createScrollToTopButon() {
         })
     })
 
-    main.appendChild(div);
+    appSelectors.main.appendChild(div);
 }
 
 
@@ -100,7 +101,7 @@ function createNavigationMenu(navItemsFragment, hostElement) {
 }
 
 // Add class 'active' to section when near top of viewport
-function updateActiveSection() {
+function updateActiveSection(sections) {
     for (const section of sections) {
         const rect = section.getBoundingClientRect();
 
@@ -133,10 +134,10 @@ function scrollToSection(e) {
 if (browserSupport.events && browserSupport.selectors){
     // Build menu and add click event listener
     document.addEventListener('DOMContentLoaded', () => {
-        createNavigationMenu(createListElements(sections), navbarList);
+        createNavigationMenu(createListElements(appSelectors.sections), appSelectors.navbarList);
 
         //how to call callback function and pass params as well as event?
-        navbarList.addEventListener('click', scrollToSection)
+        appSelectors.navbarList.addEventListener('click', scrollToSection)
     });
 
     // Set sections as active
@@ -144,7 +145,7 @@ if (browserSupport.events && browserSupport.selectors){
         if (timeoutId) clearTimeout(timeoutId);
         scrollPos = window.scrollY;
 
-        updateActiveSection();
+        updateActiveSection(appSelectors.sections);
         showNavMenu();
 
         //hide fixed navigation bar
