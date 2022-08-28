@@ -135,8 +135,6 @@ if (browserSupport.events && browserSupport.selectors){
     // Build menu and add click event listener
     document.addEventListener('DOMContentLoaded', () => {
         createNavigationMenu(createListElements(appSelectors.sections), appSelectors.navbarList);
-
-        //how to call callback function and pass params as well as event?
         appSelectors.navbarList.addEventListener('click', scrollToSection)
     });
 
